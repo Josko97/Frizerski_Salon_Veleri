@@ -1,24 +1,35 @@
 package com.frizerskisalon.veleri.controller;
 
-import org.springframework.http.HttpStatus;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.frizerskisalon.veleri.model.Korisnik;
+import com.frizerskisalon.veleri.service.KorisnikService;
 
 @RestController
+@RequestMapping("/frizerskisalon")
 public class KorisnikController {
+
+	private final KorisnikService korisnikService;
+
+	public KorisnikController(KorisnikService korisnikService) {
+		this.korisnikService = korisnikService;
+	}
 
 	@PostMapping("/registracija")
 	public ResponseEntity<String> registrirajKorisnika(@RequestBody Korisnik korisnik) {
-		try {
-			korisnikService.registrirajKorisnika(korisnik);
-			return new ResponseEntity<>("Korisnik uspješno registriran", HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-		}
+		return korisnikService.registracijaKorisnika(korisnik);
+	}
+
+	@GetMapping("/korisnik")
+	public ResponseEntity<List<Korisnik>> listaKorisnika() {
+		return korisnikService.listaKorisnika();
 	}
 
 }

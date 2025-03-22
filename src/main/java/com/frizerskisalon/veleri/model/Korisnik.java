@@ -1,6 +1,10 @@
 package com.frizerskisalon.veleri.model;
 
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -15,7 +19,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Korisnik {
+public class Korisnik{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -151,7 +155,5 @@ public class Korisnik {
 	public void setFrizer(Frizer frizer) {
 		this.frizer = frizer;
 	}
-	
-	
 
 }
