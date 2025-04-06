@@ -1,5 +1,5 @@
 package com.frizerskisalon.veleri.model;
 
 public enum Uloga {
-	KORISNIK, FRIZER, ADMIN
+	ROLE_KORISNIK, ROLE_FRIZER, ROLE_ADMIN
 }
