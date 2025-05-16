@@ -40,8 +40,6 @@ public class KorisnikServiceImpl implements KorisnikService {
 			return ResponseEntity.badRequest().body("Korisnik je već registriran!");
 		}
 
-		korisnik.setLozinka(p);
-
 		korisnikRepository.save(korisnik);
 		return ResponseEntity.ok("Korisnik uspješno registriran!");
 	}

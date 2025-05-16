@@ -13,7 +13,7 @@ import com.frizerskisalon.veleri.model.Korisnik;
 import com.frizerskisalon.veleri.service.KorisnikService;
 
 @RestController
-@RequestMapping("/korisnik")
+@RequestMapping("/api/korisnik")
 public class KorisnikController {
 
 	private final KorisnikService korisnikService;

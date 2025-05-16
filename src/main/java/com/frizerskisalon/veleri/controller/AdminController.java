@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+@RequestMapping("/api/admin")
 public class AdminController {
 
     private final KorisnikService korisnikService;
@@ -19,12 +18,12 @@ public class AdminController {
         this.korisnikService = korisnikService;
     }
 
-    @GetMapping
+    @GetMapping("/lista-korisnika")
     public ResponseEntity<List<Korisnik>> listaKorisnika() {
         return korisnikService.listaKorisnika();
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete-korisnik/{id}")
     public ResponseEntity<String> deleteKorisnik(@PathVariable Long id){
         return korisnikService.deleteKorisnikById(id);
     }
