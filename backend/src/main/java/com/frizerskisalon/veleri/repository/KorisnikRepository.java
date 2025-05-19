@@ -10,8 +10,7 @@ import com.frizerskisalon.veleri.model.Korisnik;
 @Repository
 public interface KorisnikRepository extends JpaRepository<Korisnik, Long> {
 
-	Optional<Korisnik> findByIme(String ime);
-	Optional<Korisnik> findByEmail(String email);
-	Boolean existsByEmail(String email);
-	Boolean existsByIme(String ime);
+	Optional<Korisnik> findByUsername(String username);
+	Boolean existsByUsername(String username);
+
 }

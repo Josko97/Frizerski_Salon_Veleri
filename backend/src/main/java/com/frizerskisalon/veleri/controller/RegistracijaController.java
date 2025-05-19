@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/login")
-public class LoginController {
+@RequestMapping("/api/public")
+public class RegistracijaController {
 
     private final KorisnikService korisnikService;
 
-    public LoginController(KorisnikService korisnikService) {
+    public RegistracijaController(KorisnikService korisnikService) {
         this.korisnikService = korisnikService;
     }
 

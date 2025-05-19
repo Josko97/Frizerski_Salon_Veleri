@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api/private")
 public class AdminController {
 
     private final KorisnikService korisnikService;
@@ -18,17 +18,17 @@ public class AdminController {
         this.korisnikService = korisnikService;
     }
 
-    @GetMapping("/lista-korisnika")
+    @GetMapping("/admin/lista-korisnika")
     public ResponseEntity<List<Korisnik>> listaKorisnika() {
         return korisnikService.listaKorisnika();
     }
 
-    @DeleteMapping("/delete-korisnik/{id}")
+    @DeleteMapping("/admin/delete-korisnik/{id}")
     public ResponseEntity<String> deleteKorisnik(@PathVariable Long id){
         return korisnikService.deleteKorisnikById(id);
     }
 
-    @PutMapping("/azuriraj-rolu")
+    @PutMapping("/admin/azuriraj-rolu")
     public ResponseEntity<String> azurirajRoluKorisnika(@RequestParam Long korisnikId, @RequestParam String nazivUloge){
         return korisnikService.azurirajRoluKorisnika(korisnikId, nazivUloge);
     }

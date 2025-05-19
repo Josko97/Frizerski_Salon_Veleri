@@ -17,8 +17,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Korisnik korisnik = korisnikRepository.findByEmail(email).orElseThrow(()->new UsernameNotFoundException("Korisnik sa navedenom email adresom nije pronaden! "+ email));
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Korisnik korisnik = korisnikRepository.findByUsername(username).orElseThrow(()->new UsernameNotFoundException("Korisnik ne postoji! " + username));
         return UserDetailsImpl.build(korisnik);
     }
 }

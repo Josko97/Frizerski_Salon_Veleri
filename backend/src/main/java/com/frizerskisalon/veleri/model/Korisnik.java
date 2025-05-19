@@ -34,6 +34,11 @@ public class Korisnik{
 
 	@NotBlank
 	@Size(max = 20)
+	@Column(name = "username")
+	private String username;
+
+	@NotBlank
+	@Size(max = 20)
 	@Column(name = "ime")
 	private String ime;
 
@@ -97,17 +102,19 @@ public class Korisnik{
 
 
 
-	public Korisnik(String ime, String prezime, String email, String lozinka) {
+	public Korisnik(String ime, String prezime, String email, String lozinka, String username) {
 		this.ime = ime;
 		this.prezime = prezime;
 		this.email = email;
 		this.lozinka = lozinka;
+		this.username = username;
 	}
 
-	public Korisnik(String ime, String prezime, String email) {
+	public Korisnik(String ime, String prezime, String email, String username) {
 		this.ime = ime;
 		this.prezime = prezime;
 		this.email = email;
+		this.username = username;
 	}
 
 	@Override
