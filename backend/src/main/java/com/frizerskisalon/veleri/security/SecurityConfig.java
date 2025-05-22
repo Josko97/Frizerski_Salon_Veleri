@@ -2,10 +2,12 @@ package com.frizerskisalon.veleri.security;
 
 import com.frizerskisalon.veleri.security.jwt.AuthEntryPointJwt;
 import com.frizerskisalon.veleri.security.jwt.AuthTokenFilter;
+import com.frizerskisalon.veleri.security.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,6 +27,7 @@ public class SecurityConfig {
 
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
+
 
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {

@@ -5,18 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66c8173e-ae79-4bb6-80a1-c18c06aba1ac" name="Changes" comment="Dodana Security konfiguracija">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/CsrfController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/CsrfController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/KorisnikController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/KorisnikController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/RegistracijaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/TerminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/TerminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/model/DTO/KorisnikDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/model/DTO/KorisnikDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/AuthController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/model/Korisnik.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/model/Korisnik.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/repository/KorisnikRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/repository/KorisnikRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/security/response/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/security/response/LoginResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/security/services/UserDetailsImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/security/services/UserDetailsImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/security/services/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/security/services/UserDetailsServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/service/impl/KorisnikServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/service/impl/KorisnikServiceImpl.java" afterDir="false" />
@@ -69,7 +62,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.VeleriBarbirPrgicApplication.executor": "Run",
+    "Application.VeleriBarbirPrgicApplication.executor": "Debug",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
@@ -116,14 +109,10 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
+        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/AuthController.java</url>
-          <line>36</line>
-          <properties class="com.frizerskisalon.veleri.controller.AuthController" method="authenticateUser">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="6" />
+          <line>52</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

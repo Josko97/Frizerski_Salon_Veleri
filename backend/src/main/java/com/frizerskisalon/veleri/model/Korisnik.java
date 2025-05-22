@@ -54,7 +54,6 @@ public class Korisnik{
 
 	@Size(max = 120)
 	@Column(name = "lozinka")
-	@JsonIgnore
 	private String lozinka;
 
 	private boolean accountNonLocked = true;

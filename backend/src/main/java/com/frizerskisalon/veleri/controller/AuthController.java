@@ -46,22 +46,18 @@ public class AuthController {
             return new ResponseEntity<Object>(map, HttpStatus.NOT_FOUND);
         }
 
-//      set the authentication
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
         String jwtToken = jwtUtils.generateTokenFromUsername(userDetails);
 
-        // Collect roles from the UserDetails
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        // Prepare the response body, now including the JWT token directly in the body
         LoginResponse response = new LoginResponse(userDetails.getUsername(), roles, jwtToken);
 
-        // Return the response entity with the JWT token included in the response body
         return ResponseEntity.ok(response);
     }
 

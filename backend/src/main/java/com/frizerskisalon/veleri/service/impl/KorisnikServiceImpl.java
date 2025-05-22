@@ -20,17 +20,17 @@ import com.frizerskisalon.veleri.repository.KorisnikRepository;
 @Component
 public class KorisnikServiceImpl implements KorisnikService {
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private final PasswordEncoder passwordEncoder;
 
 	private final KorisnikRepository korisnikRepository;
 	private final RoleRepository roleRepository;
 
 
-	public KorisnikServiceImpl(KorisnikRepository korisnikRepository, RoleRepository roleRepository) {
+	public KorisnikServiceImpl(KorisnikRepository korisnikRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
 		super();
 		this.korisnikRepository = korisnikRepository;
         this.roleRepository = roleRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
@@ -43,6 +43,8 @@ public class KorisnikServiceImpl implements KorisnikService {
 		if (korisnikRepository.findByUsername(korisnik.getUsername()).isPresent()) {
 			return ResponseEntity.badRequest().body("Korisnik je već registriran!");
 		}
+
+		korisnik.setLozinka(passwordEncoder.encode(korisnik.getLozinka()));
 
 		korisnikRepository.save(korisnik);
 		return ResponseEntity.ok("Korisnik uspješno registriran!");
