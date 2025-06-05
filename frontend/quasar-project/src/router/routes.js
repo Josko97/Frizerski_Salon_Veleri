@@ -4,7 +4,7 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       {
-        path: '/home',
+        path: '/',
         component: () => import('pages/HomePage.vue'),
       },
 
@@ -12,6 +12,15 @@ const routes = [
         path: '/rezervacija',
         component: () => import('pages/ReservationPage.vue'),
       },
+      {
+        path: '/o-nama',
+        component: () => import('pages/AboutPage.vue'),
+      },
+      {
+        path: '/registracija',
+        component: () => import('pages/RegisterPage.vue'),
+      },
+
     ],
   },
 ]

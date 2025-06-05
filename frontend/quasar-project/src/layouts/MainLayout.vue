@@ -1,43 +1,47 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <!-- HEADER -->
-    <q-header elevated class="bg-primary text-white">
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          @click="leftDrawerOpen = !leftDrawerOpen"
-          aria-label="Menu"
-        />
+   <!-- HEADER -->
+<q-header elevated class="bg-primary text-white">
+  <q-toolbar>
+    <q-toolbar-title> Frizerski Salon Elegance </q-toolbar-title>
+    <q-list style="display:flex;">
+      <!-- Gumb za Home -->
+      <q-item to="/" clickable v-ripple style="color:white">
+        <q-item-section avatar>
+          <q-icon name="home" />
+        </q-item-section>
+        <q-item-section> Home </q-item-section>
+      </q-item>
 
-        <q-toolbar-title> Frizerski Salon Elegance </q-toolbar-title>
-      </q-toolbar>
-    </q-header>
+      <!-- Gumb za Rezervacija -->
+      <q-item to="/rezervacija" clickable v-ripple style="color:white">
+        <q-item-section avatar>
+          <q-icon name="event" />
+        </q-item-section>
+        <q-item-section> Rezervacija </q-item-section>
+      </q-item>
+
+      <!-- Gumb za O nama -->
+      <q-item to="/o-nama" clickable v-ripple style="color:white">
+        <q-item-section avatar>
+          <q-icon name="info" />
+        </q-item-section>
+        <q-item-section> O nama </q-item-section>
+      </q-item>
+
+      <q-item to="/registracija" clickable v-ripple style="color:white">
+        <q-item-section avatar>
+          <q-icon name="register" />
+        </q-item-section>
+        <q-item-section> Registracija </q-item-section>
+      </q-item>
+    </q-list>
+  </q-toolbar>
+</q-header>
+
 
     <!-- DRAWER / SIDE MENU -->
-    <q-drawer show-if-above v-model="leftDrawerOpen" side="left" bordered>
-      <q-list>
-        <q-item-label header class="text-grey-8 text-weight-bold"> Navigacija </q-item-label>
 
-        <q-item to="/home" clickable v-ripple>
-          <q-item-section avatar>
-            <q-icon name="home" />
-          </q-item-section>
-          <q-item-section> Home </q-item-section>
-        </q-item>
-
-        <q-item to="/rezervacija" clickable v-ripple v-if="true">
-          <q-item-section avatar>
-            <q-icon name="event" />
-          </q-item-section>
-          <q-item-section> Rezervacija </q-item-section>
-        </q-item>
-
-        <!-- Dodaj više stavki po potrebi -->
-      </q-list>
-    </q-drawer>
 
     <!-- GLAVNI SADRŽAJ -->
     <q-page-container>
@@ -52,7 +56,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 
-const leftDrawerOpen = ref(false)
+
+
 </script>
