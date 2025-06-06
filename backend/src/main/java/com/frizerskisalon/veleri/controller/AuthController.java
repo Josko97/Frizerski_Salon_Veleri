@@ -1,10 +1,8 @@
 package com.frizerskisalon.veleri.controller;
 
-import com.frizerskisalon.veleri.model.Korisnik;
 import com.frizerskisalon.veleri.security.jwt.JwtUtils;
 import com.frizerskisalon.veleri.security.request.LoginRequest;
 import com.frizerskisalon.veleri.security.response.LoginResponse;
-import com.frizerskisalon.veleri.service.KorisnikService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,9 +28,6 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
-
-    @Autowired
-    KorisnikService korisnikService;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -66,9 +61,13 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/auth/register")
-    public ResponseEntity<String> registrirajKorisnika(@RequestBody Korisnik korisnik) {
-        return korisnikService.registracijaKorisnika(korisnik);
-    }
+
+
+
+
+
+
+
+
 
 }
