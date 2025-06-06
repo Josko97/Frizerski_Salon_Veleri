@@ -21,12 +21,12 @@ export function getAPI(endpoint, params = {}, throwError = false) {
       throw error
     })
 }
-
+/**
 export function postAPI(endpoint, data = {}, throwError = false, extraHeaders = {}) {
-    const url = `http://localhost:8080/api/public`
+  console.log('ušao sam!')
+  const url = 'http://localhost:8080/api/public'
   const headers = {
-    ...getTokenHeaders(),
-    ...extraHeaders
+
   }
 
   return axios
@@ -35,6 +35,7 @@ export function postAPI(endpoint, data = {}, throwError = false, extraHeaders = 
     })
     .then(res => res.data)
     .catch(error => {
+      console.log(error)
       if (!throwError) {
         if (error.response && [401, 403].includes(error.response.status)) {
           localStorage.removeItem('token')
@@ -42,6 +43,32 @@ export function postAPI(endpoint, data = {}, throwError = false, extraHeaders = 
       }
       throw error
     })
+}
+*/
+
+
+
+export function postAPI(endpoint, data = {}, throwError = false) {
+  console.log('ušao sam!');
+
+  const url = `http://localhost:8080/api/public/${endpoint}`;
+
+  return axios
+    .post(url, data)
+    .then(res => {
+      console.log('Response:', res.data);
+      return res.data;
+    })
+    .catch(error => {
+      console.log('Error:', error);
+      if (!throwError) {
+        if (error.response && [401, 403].includes(error.response.status)) {
+          console.log('Unauthorized or forbidden, removing token');
+          localStorage.removeItem('token');
+        }
+      }
+      throw error; // Rethrow the error for further handling
+    });
 }
 
 

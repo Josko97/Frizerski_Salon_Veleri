@@ -17,6 +17,7 @@ public class KorisnikDTO {
     private String ime;
     private String prezime;
     private String email;
+    private String username;
     private boolean accountNonLocked;
     private boolean accountNonExpired;
     private boolean credentialsNonExpired;

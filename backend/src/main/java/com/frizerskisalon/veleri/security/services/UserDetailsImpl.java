@@ -21,20 +21,21 @@ public class UserDetailsImpl implements UserDetails {
     private Long id;
     private String ime;
     private String prezime;
-    @JsonIgnore
     private String lozinka;
     private String email;
+    private String username;
 
     private boolean is2faEnabled;
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String ime, String prezime, String lozinka, String email, boolean is2faEnabled, Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(Long id, String ime, String prezime, String lozinka, String email, String username, boolean is2faEnabled, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.ime = ime;
         this.prezime = prezime;
         this.lozinka = lozinka;
         this.email = email;
+        this.username = username;
         this.is2faEnabled = is2faEnabled;
         this.authorities = authorities;
     }
@@ -48,6 +49,7 @@ public class UserDetailsImpl implements UserDetails {
                 korisnik.getPrezime(),
                 korisnik.getLozinka(),
                 korisnik.getEmail(),
+                korisnik.getUsername(),
                 korisnik.isTwoFactorEnabled(),
                 List.of(authority)
         );
@@ -73,7 +75,7 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     @Override

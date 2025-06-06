@@ -8,6 +8,7 @@ import com.frizerskisalon.veleri.model.Role;
 import com.frizerskisalon.veleri.model.Uloga;
 import com.frizerskisalon.veleri.repository.RoleRepository;
 import com.frizerskisalon.veleri.service.KorisnikService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,26 +20,31 @@ import com.frizerskisalon.veleri.repository.KorisnikRepository;
 @Component
 public class KorisnikServiceImpl implements KorisnikService {
 
+	private final PasswordEncoder passwordEncoder;
+
 	private final KorisnikRepository korisnikRepository;
 	private final RoleRepository roleRepository;
-	private final PasswordEncoder passwordEncoder;
+
 
 	public KorisnikServiceImpl(KorisnikRepository korisnikRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
 		super();
 		this.korisnikRepository = korisnikRepository;
         this.roleRepository = roleRepository;
-        this.passwordEncoder = passwordEncoder;
+		this.passwordEncoder = passwordEncoder;
 	}
 
 	@Override
 	public ResponseEntity<String> registracijaKorisnika(Korisnik korisnik) {
+
 		if (korisnik == null || korisnik.getEmail() == null) {
 			return ResponseEntity.badRequest().body("Korisnik ili email ne smiju biti null!");
 		}
 
-		if (korisnikRepository.findByEmail(korisnik.getEmail()).isPresent()) {
+		if (korisnikRepository.findByUsername(korisnik.getUsername()).isPresent()) {
 			return ResponseEntity.badRequest().body("Korisnik je već registriran!");
 		}
+
+		korisnik.setLozinka(passwordEncoder.encode(korisnik.getLozinka()));
 
 		korisnikRepository.save(korisnik);
 		return ResponseEntity.ok("Korisnik uspješno registriran!");
@@ -87,6 +93,7 @@ public class KorisnikServiceImpl implements KorisnikService {
 				korisnik.getIme(),
 				korisnik.getPrezime(),
 				korisnik.getEmail(),
+				korisnik.getUsername(),
 				korisnik.isAccountNonLocked(),
 				korisnik.isAccountNonExpired(),
 				korisnik.isCredentialsNonExpired(),

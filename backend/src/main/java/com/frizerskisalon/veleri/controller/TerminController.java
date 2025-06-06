@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/termin")
+@RequestMapping("/api/private")
 public class TerminController {
 
-    @PostMapping("/rezerviraj")
+    @PostMapping("/termin/rezerviraj")
     public ResponseEntity<Termin> rezervirajTermin(@RequestBody Termin termin, @AuthenticationPrincipal UserDetails userDetails){
         return null;
     }
