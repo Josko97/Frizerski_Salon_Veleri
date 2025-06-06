@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pa-md" style="background: linear-gradient(to bottom, #f8f9fa, #e9ecef);">
-    <!-- Register forma -->
+    <!-- Login forma -->
     <div class="text-center q-mb-xl" style="background: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
       <img
         src="../assets/logo.png"
@@ -8,37 +8,13 @@
         class="q-mb-md"
         style="width: 150px; border-radius: 50%; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);"
       />
-      <h1 class="text-h4 text-primary font-bold">Registracija</h1>
-      <p class="text-subtitle1 text-grey-7">Kreirajte svoj korisnički račun</p>
+      <h1 class="text-h4 text-primary font-bold">Prijava</h1>
+      <p class="text-subtitle1 text-grey-7">Unesite svoje korisničke podatke</p>
 
       <!-- Form -->
       <q-form @submit="onSubmit" class="q-mt-lg">
         <q-input
-          v-model="korisnik.ime"
-          label="Ime"
-          outlined
-          dense
-          class="q-mb-md"
-          :rules="[val => !!val || 'Ime je obavezno.']"
-        />
-        <q-input
-          v-model="korisnik.prezime"
-          label="Prezime"
-          outlined
-          dense
-          class="q-mb-md"
-          :rules="[val => !!val || 'Prezime je obavezno.']"
-        />
-        <q-input
-          v-model="korisnik.username"
-          label="username"
-          outlined
-          dense
-          class="q-mb-md"
-          :rules="[val => !!val || 'Username je obavezno.']"
-        />
-        <q-input
-          v-model="korisnik.email"
+          v-model="credentials.email"
           label="Email"
           type="email"
           outlined
@@ -47,24 +23,24 @@
           :rules="[val => !!val || 'Email je obavezan.', val => /.+@.+\..+/.test(val) || 'Unesite ispravan email.']"
         />
         <q-input
-          v-model="korisnik.lozinka"
+          v-model="credentials.lozinka"
           label="Lozinka"
           type="password"
           outlined
           dense
           class="q-mb-md"
-          :rules="[val => !!val || 'Lozinka je obavezna.', val => val.length >= 6 || 'Lozinka mora imati barem 6 znakova.']"
+          :rules="[val => !!val || 'Lozinka je obavezna.']"
         />
         <q-btn
           type="submit"
-          label="Registriraj se"
+          label="Prijavite se"
           color="primary"
           class="q-mt-md rounded-lg"
           :disable="loading"
         />
       </q-form>
       <p class="text-caption q-mt-md">
-        Već imate račun? <q-btn flat label="Prijavite se" to="/login" color="primary" class="text-decoration-none" />
+        Nemate račun? <q-btn flat label="Registrirajte se" to="/register" color="primary" class="text-decoration-none" />
       </p>
     </div>
   </q-page>
@@ -74,10 +50,7 @@
 import { ref } from 'vue';
 import { useUsersStore } from '../stores/usersStore';
 
-const korisnik = ref({
-  ime: '',
-  prezime: '',
-  username: '',
+const credentials = ref({
   email: '',
   lozinka: '',
 });
@@ -88,11 +61,11 @@ const usersStore = useUsersStore();
 
 const onSubmit = async () => {
   loading.value = true;
-  console.log('Podaci za registraciju:', korisnik.value);
+  console.log('Podaci za prijavu:', credentials.value);
 
   try {
-    await usersStore.registracija(korisnik.value);
-    alert('Registracija uspješna!');
+    await usersStore.login(credentials.value);
+    alert('Prijava uspješna!');
   } catch (error) {
     alert(`Došlo je do greške: ${error.message}`);
   } finally {
@@ -100,4 +73,3 @@ const onSubmit = async () => {
   }
 };
 </script>
-

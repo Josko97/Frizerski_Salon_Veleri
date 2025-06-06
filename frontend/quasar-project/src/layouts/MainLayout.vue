@@ -35,6 +35,13 @@
         </q-item-section>
         <q-item-section> Registracija </q-item-section>
       </q-item>
+
+      <q-item to="/login" clickable v-ripple style="color:white">
+        <q-item-section avatar>
+          <q-icon name="login" />
+        </q-item-section>
+        <q-item-section> Prijava </q-item-section>
+      </q-item>
     </q-list>
   </q-toolbar>
 </q-header>
