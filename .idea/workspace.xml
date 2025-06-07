@@ -7,13 +7,11 @@
     <list default="true" id="66c8173e-ae79-4bb6-80a1-c18c06aba1ac" name="Changes" comment="Dodana Security konfiguracija">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/model/Korisnik.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/model/Korisnik.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/security/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/security/response/LoginResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/security/response/LoginResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/security/services/UserDetailsImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/security/services/UserDetailsImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/security/services/UserDetailsServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/security/services/UserDetailsServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/service/impl/KorisnikServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/service/impl/KorisnikServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/RegistracijaController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/quasar-project/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/quasar-project/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/quasar-project/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/quasar-project/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/quasar-project/src/pages/IndexPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/quasar-project/src/pages/IndexPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/quasar-project/src/router/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/quasar-project/src/router/routes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,13 +60,13 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Application.VeleriBarbirPrgicApplication.executor": "Debug",
+    "Application.VeleriBarbirPrgicApplication.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Josko/IdeaProjects/Frizerski_Salon_Veleri/backend",
+    "last_opened_file_path": "C:/Users/User/IdeaProjects/Frizerski_Salon_Veleri",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0"
@@ -105,16 +103,5 @@
     <MESSAGE value="napravljena registracija korisnika ; potrebno implementirati spring security i omoguciti login" />
     <MESSAGE value="Dodana Security konfiguracija" />
     <option name="LAST_COMMIT_MESSAGE" value="Dodana Security konfiguracija" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/AuthController.java</url>
-          <line>52</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

@@ -1,0 +1,71 @@
+.footer-info-card {
+  width: 100vw;               /* od ruba do ruba */
+  margin: 0;
+  background: #fcfce9;
+  border-radius: 0;
+  border: 1px solid #ececec;
+  padding: 6px 18px;         /* mali padding za tanku karticu */
+  font-size: 1rem;
+  box-sizing: border-box;
+  /* Ako želiš da je baš na dnu: position: relative/absolute/fixed, ali najčešće nije potrebno */
+}
+
+.footer-title {
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.footer-info-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 18px;
+  max-width: 2000px;
+  margin: 0 auto;
+}
+
+.footer-info-left {
+  flex: 2 1 350px;
+}
+
+.footer-info-right {
+  flex: 1 1 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.footer-info-right .q-mb-xs,
+.footer-info-right .q-mb-xs + .q-mb-xs {
+  margin-bottom: 6px;
+}
+
+.footer-contact-icons {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.footer-contact-icons span {
+  color: #888;
+  margin-right: 12px;
+  font-size: 1rem;
+}
+
+/* Responsive za manje ekrane */
+@media (max-width: 900px) {
+  .footer-info-row {
+    flex-direction: column;
+    gap: 16px;
+    max-width: 97vw;
+  }
+  .footer-info-left, .footer-info-right {
+    flex: 1 1 100%;
+  }
+  .footer-info-card {
+    padding: 14px 6vw;
+  }
+}
