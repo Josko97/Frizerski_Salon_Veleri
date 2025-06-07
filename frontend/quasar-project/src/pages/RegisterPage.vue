@@ -57,7 +57,6 @@
       </q-form>
     </div>
   </q-page>
-  <q-btn label="Test Notify" color="primary" @click="$q.notify({ type: 'positive', message: 'Test radi!' })" />
 </template>
 
 <script setup>

@@ -15,18 +15,8 @@
 
         <!-- Desna strana: Prijava ili Odjava -->
         <div class="q-ml-auto">
-          <q-btn
-            v-if="!isAuthenticated"
-            flat
-            to="/login"
-            label="Prijava"
-          />
-          <q-btn
-            v-else
-            flat
-            label="Odjava"
-            @click="logout"
-          />
+          <q-btn v-if="!isAuthenticated" flat to="/login" label="Prijava" />
+          <q-btn v-else flat label="Odjava" @click="logout" />
         </div>
       </q-toolbar>
     </q-header>
@@ -39,18 +29,47 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted, onBeforeUnmount, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 
-// Ovo je samo privremena logika — u pravom appu koristiš auth servis
-const isAuthenticated = ref(!!localStorage.getItem('token'))
+// Koristi pravi ključ iz localStorage (authToken iz login/registracije)
+const TOKEN_KEY = 'authToken'
+const isAuthenticated = ref(!!localStorage.getItem(TOKEN_KEY))
 const router = useRouter()
+const route = useRoute()
+// Osiguraj da se prikaz gumba osvježava i kad se promijeni localStorage (npr. u drugom tabu)
+function checkAuth() {
+  isAuthenticated.value = !!localStorage.getItem(TOKEN_KEY)
+}
 
+onMounted(() => {
+  window.addEventListener('storage', checkAuth)
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('storage', checkAuth)
+})
+
+// Osvježi svaki put kad se promijeni ruta
+watch(
+  () => route.fullPath,
+  () => {
+    isAuthenticated.value = !!localStorage.getItem(TOKEN_KEY)
+  }
+)
+
+// Logout funkcija
 const logout = () => {
-  localStorage.removeItem('token')
+  localStorage.removeItem(TOKEN_KEY)
+  localStorage.removeItem('authUser')
+  localStorage.removeItem('authRoles')
   isAuthenticated.value = false
   router.push('/login')
 }
+
+// OVAJ dio koristiš nakon login-a na LoginPage.vue:
+// localStorage.setItem('authToken', token)
+// isAuthenticated.value = true
 </script>
 
 <style>
@@ -59,21 +78,25 @@ const logout = () => {
   z-index: 0;
   width: 100vw;
   height: 100vh;
-  left: 0; top: 0;
+  left: 0;
+  top: 0;
   background: url('src/assets/Elegance.png') center center / cover no-repeat;
   filter: blur(0px) brightness(1);
   opacity: 0.8;
   pointer-events: none;
 }
+
 .bg-overlay {
   position: fixed;
   z-index: 1;
   width: 100vw;
   height: 100vh;
-  left: 0; top: 0;
-  background: rgba(255,255,255,0.32);
+  left: 0;
+  top: 0;
+  background: rgba(255, 255, 255, 0.32);
   pointer-events: none;
 }
+
 .q-layout,
 .q-page-container {
   position: relative;

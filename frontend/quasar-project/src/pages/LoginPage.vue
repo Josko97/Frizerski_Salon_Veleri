@@ -6,23 +6,12 @@
       <q-form @submit.prevent="submitLogin" ref="loginForm" class="q-gutter-md">
 
         <!-- Korisničko ime -->
-        <q-input
-          filled
-          v-model="form.username"
-          label="Korisničko ime"
-          :rules="[ val => !!val || 'Korisničko ime je obavezno' ]"
-          lazy-rules
-        />
+        <q-input filled v-model="form.username" label="Korisničko ime"
+          :rules="[val => !!val || 'Korisničko ime je obavezno']" lazy-rules />
 
         <!-- Lozinka -->
-        <q-input
-          filled
-          v-model="form.password"
-          label="Lozinka"
-          type="password"
-          :rules="[ val => !!val || 'Lozinka je obavezna' ]"
-          lazy-rules
-        />
+        <q-input filled v-model="form.password" label="Lozinka" type="password"
+          :rules="[val => !!val || 'Lozinka je obavezna']" lazy-rules />
 
         <!-- Ispis pogreške -->
         <div v-if="errorMessage" class="text-negative q-mt-sm">
@@ -31,12 +20,7 @@
 
         <!-- Gumb za prijavu -->
         <div class="row justify-center q-mt-lg">
-          <q-btn
-            label="Prijavi se"
-            type="submit"
-            color="primary"
-            :loading="loading"
-          />
+          <q-btn label="Prijavi se" type="submit" color="primary" :loading="loading" />
         </div>
 
         <!-- Link na registraciju -->
@@ -101,15 +85,21 @@ async function submitLogin() {
       localStorage.setItem('authUser', user)
       localStorage.setItem('authRoles', JSON.stringify(roles))
 
-      // 6) Postavi default header za buduće Axios pozive (ako želiš)
-      proxy.$api.defaults.headers.common['Authorization'] = `Bearer ${token}`
-      
+      try {
+        const csrfResponse = await proxy.$api.get('/api/public/csrf-token')
+        if (csrfResponse.data && csrfResponse.data.token) {
+          localStorage.setItem('csrfToken', csrfResponse.data.token)
+        }
+      } catch (err) {
+        console.error('Ne mogu dohvatiti CSRF token nakon prijave:', err)
+      }
+
       // 7) Obavijesti korisnika i presmjeri negdje (npr. na početnu stranicu)
       $q.notify({
         type: 'positive',
         message: 'Prijava uspješna!'
       })
-      router.push('/')    // ili na neku “protected” rutu, npr. /dashboard
+      router.push('/')  // ili na neku “protected” rutu, npr. /dashboard
     }
   }
   catch (err) {
@@ -144,6 +134,7 @@ async function submitLogin() {
   max-width: 400px;
   margin: 0 auto;
 }
+
 .rounded-borders {
   border-radius: 8px;
 }

@@ -21,4 +21,19 @@ export default defineBoot(({ app }) => {
   //       so you can easily perform requests against your app's API
 })
 
+
+api.interceptors.request.use((config) => {
+  // JWT token, ako ga imaš
+  const jwt = localStorage.getItem('authToken')
+  if (jwt) {
+    config.headers.Authorization = `Bearer ${jwt}`
+  }
+  // CSRF token, ako ga imaš
+  const csrf = localStorage.getItem('csrfToken')
+  if (csrf) {
+    config.headers['X-CSRF-TOKEN'] = csrf
+  }
+  return config
+})
+
 export { api }
