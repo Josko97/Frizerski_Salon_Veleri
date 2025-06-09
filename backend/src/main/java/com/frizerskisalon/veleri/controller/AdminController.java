@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/private")
+@CrossOrigin(origins = "http://localhost:9000")
 public class AdminController {
 
     private final KorisnikService korisnikService;

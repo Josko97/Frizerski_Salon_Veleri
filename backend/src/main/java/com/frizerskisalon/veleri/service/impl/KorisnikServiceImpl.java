@@ -1,6 +1,7 @@
 package com.frizerskisalon.veleri.service.impl;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import com.frizerskisalon.veleri.model.DTO.KorisnikDTO;
@@ -34,20 +35,21 @@ public class KorisnikServiceImpl implements KorisnikService {
 	}
 
 	@Override
-	public ResponseEntity<String> registracijaKorisnika(Korisnik korisnik) {
+	public ResponseEntity<Map<String, String>> registracijaKorisnika(Korisnik korisnik) {
 
 		if (korisnik == null || korisnik.getEmail() == null) {
-			return ResponseEntity.badRequest().body("Korisnik ili email ne smiju biti null!");
+			return ResponseEntity.badRequest().body(Map.of("message", "Korisnik ili email ne smiju biti null!"));
 		}
 
 		if (korisnikRepository.findByUsername(korisnik.getUsername()).isPresent()) {
-			return ResponseEntity.badRequest().body("Korisnik je već registriran!");
+			return ResponseEntity.badRequest().body(Map.of("message", "Korisnik je već registriran!"));
 		}
 
 		korisnik.setLozinka(passwordEncoder.encode(korisnik.getLozinka()));
 
 		korisnikRepository.save(korisnik);
-		return ResponseEntity.ok("Korisnik uspješno registriran!");
+		return ResponseEntity.ok(Map.of("message", "Registracija uspješna!"));
+
 	}
 
 	@Override

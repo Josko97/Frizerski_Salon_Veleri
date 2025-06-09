@@ -1,5 +1,6 @@
 package com.frizerskisalon.veleri.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -19,16 +20,18 @@ public class Termin {
 	@Column(name = "termin_id")
 	private Long terminId;
 
-	@CreationTimestamp
-	@Column(updatable = false, name = "datum_termina")
-	private LocalDateTime datumTermina;
+	@Column(updatable = true, name = "datum_termina")
+	private LocalDate datumTermina;
+
+	@Column(updatable = true, name = "vrijeme")
+	private String vrijeme;
 
 	@ManyToOne
 	@JoinColumn(name = "usluga_id", nullable = false)
 	private Usluga usluga;
 
 	@ManyToOne
-	@JoinColumn(name = "frizer_id", nullable = false)
+	@JoinColumn(name = "frizer_id")
 	private Frizer frizer;
 
 	@ManyToOne

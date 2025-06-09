@@ -3,6 +3,7 @@ package com.frizerskisalon.veleri.model;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ public class Usluga {
 	@Column(name = "trajanje")
 	private int trajanje;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "usluga")
 	private List<Termin> termini;
 

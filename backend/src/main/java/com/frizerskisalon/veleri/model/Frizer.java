@@ -2,6 +2,7 @@ package com.frizerskisalon.veleri.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Frizer {
 
 	@Id
-	@Column(name = "firzer_id")
+	@Column(name = "frizer_id")
 	private Long frizerId;
 
 	@Column(name = "kontakt")
@@ -23,7 +24,7 @@ public class Frizer {
 	private String specijalizacija;
 
 	@OneToOne
-	@JoinColumn(name = "frizer_id", referencedColumnName = "korisnik_id", insertable = false, updatable = false)
+	@JoinColumn(name = "korisnik_id", referencedColumnName = "korisnik_id", insertable = false, updatable = false)
 	private Korisnik korisnik;
 
 	@OneToMany(mappedBy = "frizer")

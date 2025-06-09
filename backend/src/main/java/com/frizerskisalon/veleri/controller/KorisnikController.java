@@ -14,6 +14,7 @@ import com.frizerskisalon.veleri.service.KorisnikService;
 
 @RestController
 @RequestMapping("/api/private")
+@CrossOrigin(origins = "http://localhost:9000")
 public class KorisnikController {
 
 	private final KorisnikService korisnikService;
