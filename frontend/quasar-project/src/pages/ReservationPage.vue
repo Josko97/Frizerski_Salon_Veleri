@@ -36,9 +36,14 @@
         <q-select
           filled
           v-model="selectedTime"
-          :options="availableTimes"
+          :options="filteredTimes"
           label="Odaberi vrijeme"
+          :disable="filteredTimes.length === 0"
         />
+
+        <div v-if="filteredTimes.length === 0 && selectedService && selectedStylist && selectedDate" class="text-red q-mt-sm">
+          Sva vremena su zauzeta za odabrani dan!
+        </div>
 
         <q-btn
           color="primary"
@@ -70,7 +75,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import { api } from 'boot/axios'
 
 const services = ref([])
@@ -80,16 +85,13 @@ onMounted(async () => {
   try {
     // Dohvati usluge
     const resUsluge = await api.get('/api/private/usluge')
-     console.log('resUsluge.data:', resUsluge.data)
     services.value = resUsluge.data.map(usluga => ({
       label: usluga.naziv,
-      value: usluga.uslugaId // ili usluga.id, prilagodi prema modelu
+      value: usluga.uslugaId
     }))
 
     // Dohvati frizere
     const resFrizeri = await api.get('/api/private/frizeri')
-    console.log('resFrizeri.data:', resFrizeri.data)
-
     stylists.value = resFrizeri.data.map(frizer => ({
       label: frizer.korisnik
         ? `${frizer.korisnik.ime} ${frizer.korisnik.prezime}`
@@ -100,9 +102,8 @@ onMounted(async () => {
     if (e.response) {
       console.error('Status:', e.response.status)
       console.error('Data:', e.response.data)
-     
     } else {
-      console.error('Greška:')
+      console.error('Greška:', e)
     }
   }
 })
@@ -118,6 +119,8 @@ const availableTimes = [
   '14:00', '15:00', '16:00', '17:00', '18:00'
 ]
 
+const takenTimes = ref([])
+
 const selectedService = ref(null)
 const selectedStylist = ref(null)
 const selectedDate = ref(null)
@@ -125,6 +128,32 @@ const selectedTime = ref(null)
 const loading = ref(false)
 const errorMessage = ref('')
 const successMessage = ref('')
+
+// Dohvaća zauzeta vremena kad se promijeni usluga, frizer ili datum
+watch([selectedService, selectedStylist, selectedDate], async ([uslugaId, frizerId, datum]) => {
+  if (uslugaId && frizerId && datum) {
+    try {
+      const res = await api.get('/api/private/termini/zauzeti', {
+        params: { frizerId, uslugaId, datum }
+      })
+       console.log('zauzeta vremena iz backend-a:', res.data)
+      takenTimes.value = res.data || []
+      if (takenTimes.value.includes(selectedTime.value)) {
+        selectedTime.value = null
+      }
+    } catch {
+      
+      takenTimes.value = []
+    }
+  } else {
+    takenTimes.value = []
+  }
+})
+
+// Samo slobodna vremena
+const filteredTimes = computed(() =>
+  availableTimes.filter(t => !takenTimes.value.includes(t))
+)
 
 const formIsValid = computed(() =>
   selectedService.value &&
@@ -152,7 +181,7 @@ async function submitReservation() {
   const url = `/api/private/termin/rezerviraj/usluga/${uslugaId}/frizer/${frizerId}`
 
   const dataToSend = {
-    datum: selectedDate.value,
+    datumTermina: selectedDate.value,
     vrijeme: selectedTime.value
   }
 
@@ -166,6 +195,7 @@ async function submitReservation() {
     selectedStylist.value = null
     selectedDate.value = null
     selectedTime.value = null
+    takenTimes.value = []
   } catch (err) {
     errorMessage.value =
       (err.response && err.response.data && err.response.data.message) ||

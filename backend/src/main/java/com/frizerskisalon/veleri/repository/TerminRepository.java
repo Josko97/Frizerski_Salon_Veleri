@@ -12,5 +12,5 @@ import java.util.List;
 public interface TerminRepository extends JpaRepository<Termin, Long> {
 
 
-    List<Termin> findByFrizer_FrizerIdAndUsluga_UslugaIdAndDatumTermina(Long frizerId, Long uslugaId, LocalDate datum);
+    List<Termin> findByFrizer_FrizerIdAndUsluga_UslugaIdAndDatumTermina(Long frizerId, Long uslugaId, String datumTermina);
 }

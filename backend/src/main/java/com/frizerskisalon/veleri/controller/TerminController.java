@@ -87,16 +87,15 @@ public class TerminController {
             @RequestParam Long frizerId,
             @RequestParam Long uslugaId,
             @RequestParam String datum) {
-        // datum može biti "2025-06-12"
-        LocalDate datumLD = LocalDate.parse(datum);
-        List<Termin> zauzeti = terminRepository
-                .findByFrizer_FrizerIdAndUsluga_UslugaIdAndDatumTermina(frizerId, uslugaId, datumLD);
 
-        // Vrati samo vremena koja su zauzeta
+        List<Termin> zauzeti = terminRepository
+                .findByFrizer_FrizerIdAndUsluga_UslugaIdAndDatumTermina(frizerId, uslugaId, datum);
+
         return zauzeti.stream()
                 .map(Termin::getVrijeme)
                 .collect(Collectors.toList());
     }
+
 
 
 }

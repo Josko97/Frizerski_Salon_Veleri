@@ -21,7 +21,7 @@ public class Termin {
 	private Long terminId;
 
 	@Column(updatable = true, name = "datum_termina")
-	private LocalDate datumTermina;
+	private String datumTermina;
 
 	@Column(updatable = true, name = "vrijeme")
 	private String vrijeme;
