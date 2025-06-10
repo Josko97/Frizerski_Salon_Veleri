@@ -19,6 +19,10 @@ const routes = [
         path: '/register',
         component: () => import('pages/RegisterPage.vue'),
       },
+      {
+        path: '/kontakt',
+        component: () => import('pages/FormaPage.vue'),
+      },
     ],
   },
 ]

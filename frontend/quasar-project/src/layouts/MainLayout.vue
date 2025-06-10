@@ -11,6 +11,7 @@
         <q-toolbar-title class="row items-center no-wrap">
           <q-btn flat to="/" label="Home" class="q-mr-sm" />
           <q-btn flat to="/rezervacija" label="Rezervacija" />
+          <q-btn flat to="/kontakt" label="Kontakt" />
         </q-toolbar-title>
 
         <!-- Desna strana: Prijava ili Odjava -->
