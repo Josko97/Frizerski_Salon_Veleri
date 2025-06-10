@@ -1,11 +1,40 @@
 <template>
-  <q-page class="q-pa-md">
-    <q-card flat bordered class="q-pa-lg q-mx-auto" style="max-width: 500px">
-      <q-card-section>
-        <div class="text-h6 text-primary">Rezervacija termina</div>
-      </q-card-section>
+  <q-page
+    class="row justify-center"
+    style="
+      min-height: 100vh;
+      background: url('../assets/background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      padding: 20px;
+    "
+  >
+    <q-card
+      class="shadow-2"
+      style="
+        width: 600px;
+        max-width: 95%;
+        padding: 24px;
+        border-radius: 12px;
+        background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(240,240,240,0.9));
+        backdrop-filter: blur(10px);
+      "
+    >
+      <div class="text-center q-mb-lg">
+        <img
+          src="../assets/logo.png"
+          alt="Salon Logo"
+          style="
+            width: 80px;
+            border-radius: 50%;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          "
+        />
+        <h1 class="text-h5 text-primary">Rezervacija termina</h1>
+        <p class="text-subtitle1 text-grey-7">Odaberite željeni termin</p>
+      </div>
 
-      <q-card-section class="q-gutter-md">
+      <q-form class="q-gutter-lg q-form">
         <q-select
           filled
           v-model="selectedService"
@@ -13,6 +42,7 @@
           label="Odaberi uslugu"
           emit-value
           map-options
+          class="gradient-input q-mb-xl"
         />
 
         <q-select
@@ -22,6 +52,7 @@
           label="Odaberi frizera"
           emit-value
           map-options
+          class="gradient-input q-mb-xl"
         />
 
         <q-date
@@ -31,6 +62,7 @@
           :options="availableDates"
           label="Odaberi datum"
           today-btn
+          class="gradient-date q-mb-xl"
         />
 
         <q-select
@@ -39,37 +71,50 @@
           :options="filteredTimes"
           label="Odaberi vrijeme"
           :disable="filteredTimes.length === 0"
+          class="gradient-input q-mb-xl"
         />
 
-        <div v-if="filteredTimes.length === 0 && selectedService && selectedStylist && selectedDate" class="text-red q-mt-sm">
+        <div
+          v-if="filteredTimes.length === 0 && selectedService && selectedStylist && selectedDate"
+          class="text-negative q-mt-sm"
+        >
           Sva vremena su zauzeta za odabrani dan!
         </div>
 
-        <q-btn
-          color="primary"
-          label="Rezerviraj"
-          @click="submitReservation"
-          :disable="!formIsValid || loading"
-          class="full-width"
-        />
+        <div class="q-mt-xl text-center">
+          <q-btn
+            label="Rezerviraj"
+            color="primary"
+            @click="submitReservation"
+            :disable="!formIsValid || loading"
+            class="shadow-2 hover-grow"
+            :loading="loading"
+            style="
+              border-radius: 8px;
+              width: calc(100% - 16px);
+              max-width: 300px;
+              margin: 0 auto;
+            "
+          />
+        </div>
+
+        <q-banner v-if="successMessage" class="q-mt-lg bg-green-2 text-green-9" dense>
+          {{ successMessage }}
+        </q-banner>
+        <q-banner v-if="errorMessage" class="q-mt-lg bg-red-2 text-red-9" dense>
+          {{ errorMessage }}
+        </q-banner>
 
         <div class="q-mt-md">
           <b>DEBUG:</b>
           <pre>
-    Service: {{ selectedService }}
-    Stylist: {{ selectedStylist }}
-    Date: {{ selectedDate }}
-    Time: {{ selectedTime }}
-  </pre>
+Service: {{ selectedService }}
+Stylist: {{ selectedStylist }}
+Date: {{ selectedDate }}
+Time: {{ selectedTime }}
+          </pre>
         </div>
-
-        <q-banner v-if="successMessage" class="q-mt-md bg-green-2 text-green-9" dense>
-          {{ successMessage }}
-        </q-banner>
-        <q-banner v-if="errorMessage" class="q-mt-md bg-red-2 text-red-9" dense>
-          {{ errorMessage }}
-        </q-banner>
-      </q-card-section>
+      </q-form>
     </q-card>
   </q-page>
 </template>
@@ -83,14 +128,12 @@ const stylists = ref([])
 
 onMounted(async () => {
   try {
-    // Dohvati usluge
     const resUsluge = await api.get('/api/private/usluge')
     services.value = resUsluge.data.map(usluga => ({
       label: usluga.naziv,
       value: usluga.uslugaId
     }))
 
-    // Dohvati frizere
     const resFrizeri = await api.get('/api/private/frizeri')
     stylists.value = resFrizeri.data.map(frizer => ({
       label: frizer.korisnik
@@ -108,7 +151,6 @@ onMounted(async () => {
   }
 })
 
-// Nedjeljom (0) ne radi
 const availableDates = (date) => {
   const day = new Date(date).getDay()
   return day !== 0
@@ -129,20 +171,18 @@ const loading = ref(false)
 const errorMessage = ref('')
 const successMessage = ref('')
 
-// Dohvaća zauzeta vremena kad se promijeni usluga, frizer ili datum
 watch([selectedService, selectedStylist, selectedDate], async ([uslugaId, frizerId, datum]) => {
   if (uslugaId && frizerId && datum) {
     try {
       const res = await api.get('/api/private/termini/zauzeti', {
         params: { frizerId, uslugaId, datum }
       })
-       console.log('zauzeta vremena iz backend-a:', res.data)
+      console.log('zauzeta vremena iz backend-a:', res.data)
       takenTimes.value = res.data || []
       if (takenTimes.value.includes(selectedTime.value)) {
         selectedTime.value = null
       }
     } catch {
-      
       takenTimes.value = []
     }
   } else {
@@ -150,7 +190,6 @@ watch([selectedService, selectedStylist, selectedDate], async ([uslugaId, frizer
   }
 })
 
-// Samo slobodna vremena
 const filteredTimes = computed(() =>
   availableTimes.filter(t => !takenTimes.value.includes(t))
 )
@@ -163,7 +202,6 @@ const formIsValid = computed(() =>
 )
 
 async function submitReservation() {
-  // Debug ispis
   console.log(
     'Selected values:',
     selectedService.value,
@@ -190,7 +228,6 @@ async function submitReservation() {
   try {
     await api.post(url, dataToSend)
     successMessage.value = 'Rezervacija je uspješno poslana!'
-    // Resetiraj formu
     selectedService.value = null
     selectedStylist.value = null
     selectedDate.value = null
@@ -205,3 +242,49 @@ async function submitReservation() {
   }
 }
 </script>
+
+<style scoped>
+.q-form {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.gradient-input {
+  background: linear-gradient(145deg, #f0f0f0, #e0e0e0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  width: 100%;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 12px;
+  padding-right: 12px;
+  box-sizing: border-box;
+}
+
+.gradient-date {
+  background: linear-gradient(145deg, #f7f7f7, #dcdcdc);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  width: 100%;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 12px;
+  padding-right: 12px;
+  box-sizing: border-box;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.text-negative {
+  color: #e53935;
+}
+
+.hover-grow:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
+}
+</style>

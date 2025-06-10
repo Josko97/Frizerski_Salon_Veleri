@@ -1,68 +1,118 @@
 <template>
-  <q-page class="row justify-center">
-    <div class="column q-pa-md q-ma-lg bg-white rounded-borders shadow-2">
-      <h4 class="text-center q-mb-md">Registracija</h4>
+  <q-page
+    class="row justify-center"
+    style="
+      background: url('../assets/background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      min-height: 100vh;
+    "
+  >
+    <q-card
+      class="shadow-2"
+      style="
+        width: 500px;
+        max-width: 90%;
+        padding: 24px;
+        border-radius: 12px;
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 240, 240, 0.9));
+        backdrop-filter: blur(10px);
+      "
+    >
+      <div class="text-center q-mb-lg">
+        <img
+          src="../assets/logo.png"
+          alt="Salon Logo"
+          style="
+            width: 100px;
+            border-radius: 50%;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          "
+        />
+        <h1 class="text-h5 text-primary">Registracija</h1>
+        <p class="text-subtitle1 text-grey-7">Kreirajte svoj korisnički račun</p>
+      </div>
 
-      <q-form @submit.prevent="submitForm" ref="formRef" class="q-gutter-md">
-        <!-- Korisničko ime -->
-        <q-input filled v-model="form.username" label="Korisničko ime" :rules="[
-          val => !!val || 'Korisničko ime je obavezno',
-          val => val.length <= 20 || 'Do 20 znakova'
-        ]" lazy-rules />
+      <q-form @submit.prevent="submitForm" ref="formRef" class="q-gutter-lg">
+        <q-input
+          filled
+          v-model="form.username"
+          label="Korisničko ime"
+          :rules="[val => !!val || 'Korisničko ime je obavezno', val => val.length <= 20 || 'Do 20 znakova']"
+          style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px;"
+          prepend-icon="person"
+        />
+        <q-input
+          filled
+          v-model="form.ime"
+          label="Ime"
+          :rules="[val => !!val || 'Ime je obavezno']"
+          style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px;"
+          prepend-icon="badge"
+        />
+        <q-input
+          filled
+          v-model="form.prezime"
+          label="Prezime"
+          :rules="[val => !!val || 'Prezime je obavezno']"
+          style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px;"
+          prepend-icon="badge-account-horizontal"
+        />
+        <q-input
+          filled
+          v-model="form.email"
+          label="Email"
+          type="email"
+          :rules="[val => !!val || 'Email je obavezan', val => /.+@.+\..+/.test(val) || 'Neispravan email']"
+          style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px;"
+          prepend-icon="email"
+        />
+        <q-input
+          filled
+          v-model="form.lozinka"
+          label="Lozinka"
+          type="password"
+          :rules="[val => !!val || 'Lozinka je obavezna', val => val.length >= 6 || 'Najmanje 6 znakova']"
+          style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px;"
+          prepend-icon="lock"
+        />
+        <q-input
+          filled
+          v-model="form.confirmLozinka"
+          label="Potvrdite lozinku"
+          type="password"
+          :rules="[val => !!val || 'Potvrdite lozinku', val => val === form.lozinka || 'Lozinke se ne podudaraju']"
+          style="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px;"
+          prepend-icon="lock-check"
+        />
 
-        <!-- Ime -->
-        <q-input filled v-model="form.ime" label="Ime" :rules="[
-          val => !!val || 'Ime je obavezno'
-        ]" lazy-rules />
-
-        <!-- Prezime -->
-        <q-input filled v-model="form.prezime" label="Prezime" :rules="[
-          val => !!val || 'Prezime je obavezno'
-        ]" lazy-rules />
-
-        <!-- Email -->
-        <q-input filled v-model="form.email" label="Email" type="email" :rules="[
-          val => !!val || 'Email je obavezan',
-          val => /.+@.+\..+/.test(val) || 'Neispravan email',
-          val => val.length <= 50 || 'Do 50 znakova'
-        ]" lazy-rules />
-
-        <!-- Lozinka -->
-        <q-input filled v-model="form.lozinka" label="Lozinka" type="password" :rules="[
-          val => !!val || 'Lozinka je obavezna',
-          val => val.length >= 6 || 'Najmanje 6 znakova',
-          val => val.length <= 120 || 'Do 120 znakova'
-        ]" lazy-rules />
-
-        <!-- Potvrda lozinke -->
-        <q-input filled v-model="form.confirmLozinka" label="Potvrdite lozinku" type="password" :rules="[
-          val => !!val || 'Potvrdite lozinku',
-          val => val === form.lozinka || 'Lozinke se ne podudaraju'
-        ]" lazy-rules />
-
-        <!-- Poruka o grešci -->
-        <div v-if="errorMessage" class="text-negative q-mt-sm">
+        <div v-if="errorMessage" class="text-negative q-my-sm">
           {{ errorMessage }}
         </div>
 
-        <!-- Submit gumb -->
         <div class="row justify-center q-mt-lg">
-          <q-btn label="Registriraj se" type="submit" color="primary" :loading="loading" />
+          <q-btn
+            label="Registriraj se"
+            type="submit"
+            color="primary"
+            class="shadow-2 hover-grow"
+            :loading="loading"
+            style="border-radius: 8px; width: 100%; max-width: 300px;"
+          />
         </div>
 
-        <!-- Link za login -->
         <div class="text-center q-mt-md">
-          <router-link to="/login">Već imaš račun? Prijavi se</router-link>
+          <router-link to="/login" class="text-primary text-decoration-none">Već imaš račun? Prijavi se</router-link>
         </div>
       </q-form>
-    </div>
+    </q-card>
   </q-page>
 </template>
 
 <script setup>
-import { ref, reactive, getCurrentInstance } from 'vue'
-import { useQuasar } from 'quasar'
-import { useRouter } from 'vue-router'
+import { ref, reactive, getCurrentInstance } from 'vue';
+import { useQuasar } from 'quasar';
+import { useRouter } from 'vue-router';
 
 const form = reactive({
   username: '',
@@ -71,21 +121,21 @@ const form = reactive({
   email: '',
   lozinka: '',
   confirmLozinka: ''
-})
+});
 
-const formRef = ref(null)
-const loading = ref(false)
-const errorMessage = ref('')
-const router = useRouter()
-const { proxy } = getCurrentInstance()
-const $q = useQuasar()
+const formRef = ref(null);
+const loading = ref(false);
+const errorMessage = ref('');
+const router = useRouter();
+const { proxy } = getCurrentInstance();
+const $q = useQuasar();
 
 async function submitForm() {
-  const valid = await formRef.value.validate()
-  if (!valid) return
+  const valid = await formRef.value.validate();
+  if (!valid) return;
 
-  loading.value = true
-  errorMessage.value = ''
+  loading.value = true;
+  errorMessage.value = '';
 
   const payload = {
     username: form.username,
@@ -93,40 +143,27 @@ async function submitForm() {
     prezime: form.prezime,
     email: form.email,
     lozinka: form.lozinka
-  }
+  };
 
   try {
-    const res = await proxy.$api.post('/api/public/auth/register', payload)
-    console.log('REGISTER SUCCESS:', res)
-    $q.notify({ type: 'positive', message: res.data.message || 'Registracija uspješna!' })
-    router.push("/login")
+    const res = await proxy.$api.post('/api/public/auth/register', payload);
+    $q.notify({ type: 'positive', message: res.data.message || 'Registracija uspješna!' });
+    router.push('/login');
   } catch (err) {
-    console.log("REGISTER ERROR:", err)
-    if (err.response) {
-      console.log("Error response:", err.response)
-      console.log("Error response data:", err.response.data)
-      console.log("Error response headers:", err.response.headers)
-      console.log("Error response status:", err.response.status)
-    } else if (err.request) {
-      console.log("Error request:", err.request)
-    } else {
-      console.log("Error message:", err.message)
-    }
-    errorMessage.value = 'Greška pri registraciji. Pokušajte ponovno.'
+    errorMessage.value = err.response?.data?.message || 'Greška pri registraciji. Pokušajte ponovno.';
   } finally {
-    loading.value = false
+    loading.value = false;
   }
 }
-
 </script>
 
 <style scoped>
-.column {
-  max-width: 400px;
-  margin: 0 auto;
+.text-negative {
+  color: #e53935;
 }
 
-.rounded-borders {
-  border-radius: 8px;
+.hover-grow:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease-in-out;
 }
 </style>
