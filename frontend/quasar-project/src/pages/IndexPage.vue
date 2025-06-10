@@ -1,16 +1,13 @@
 <template>
   <q-page class="q-pa-none">
     <!-- HERO sekcija s pozadinskom slikom -->
-    <div
-      class="column items-center justify-center q-pa-md hero-section"
-      style="
+    <div class="column items-center justify-center q-pa-md hero-section" style="
         min-height: 60vh;
         border-radius: 0 0 40px 40px;
         box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
         background-size: cover;
         background-position: center;
-      "
-    >
+      ">
       <div class="hero-text-wrapper">
         <div class="hero-background-overlay">
           <div class="text-h1 hero-title q-mb-sm">
@@ -22,15 +19,8 @@
           </div>
         </div>
       </div>
-      <q-btn
-        color="lime-1"
-        text-color="brown-4"
-        label="Rezerviraj termin"
-        to="/rezervacija"
-        size="xl"
-        unelevated
-        class="q-mt-md hero-button"
-      />
+      <q-btn color="lime-1" text-color="brown-4" label="Rezerviraj termin" to="/rezervacija" size="xl" unelevated
+        class="q-mt-md hero-button" />
     </div>
 
     <!-- Galerija -->
@@ -76,25 +66,22 @@
             <b>Telefon:</b> 051/123-456<br />
             <b>Email:</b> info@elegance.hr
           </div>
+
+          <div class="mapa-container q-mb-sm">
+            <div class="text-subtitle2 q-mb-xs">Pronađite nas na karti:</div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2804.519978817596!2d14.421708477379953!3d45.33831487107221!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4764a0e031fe8c9d%3A0x670190c9dd8e38dd!2sVeleu%C4%8Dili%C5%A1te%20u%20Rijeci!5e0!3m2!1shr!2shr!4v1749591796364!5m2!1shr!2shr"
+              width="100%" height="220" style="border:0; border-radius: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.12);"
+              allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+
           <q-separator class="q-my-sm" />
           <div class="footer-contact-icons">
             <span class="text-grey">Pratite nas:</span>
-            <q-btn
-              flat
-              round
-              icon="mdi-facebook"
-              @click="goTo('https://facebook.com/elegance')"
-              class="q-ml-sm"
-              color="primary"
-            />
-            <q-btn
-              flat
-              round
-              icon="mdi-instagram"
-              @click="goTo('https://instagram.com/elegance')"
-              class="q-ml-sm"
-              color="primary"
-            />
+            <q-btn flat round icon="mdi-facebook" @click="goTo('https://facebook.com/elegance')" class="q-ml-sm"
+              color="primary" />
+            <q-btn flat round icon="mdi-instagram" @click="goTo('https://instagram.com/elegance')" class="q-ml-sm"
+              color="primary" />
           </div>
         </div>
       </div>
@@ -120,7 +107,8 @@ function goTo(url) {
 
 /* HERO stilovi */
 .hero-section {
-  background: url('/assets/hero-background.jpg'); /* samo slika, bez gradijenta */
+  background: url('/assets/hero-background.jpg');
+  /* samo slika, bez gradijenta */
   background-size: cover;
   background-position: center;
   position: relative;
@@ -231,9 +219,12 @@ function goTo(url) {
 }
 
 .gallery-image {
-  width: 150px; /* isti fiksni širinski format */
-  height: 150px; /* ista visina */
-  object-fit: cover; /* da se slika prilagodi bez izobličenja */
+  width: 150px;
+  /* isti fiksni širinski format */
+  height: 150px;
+  /* ista visina */
+  object-fit: cover;
+  /* da se slika prilagodi bez izobličenja */
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
