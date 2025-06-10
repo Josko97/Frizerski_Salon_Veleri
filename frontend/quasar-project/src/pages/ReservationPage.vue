@@ -15,7 +15,7 @@
         max-width: 95%;
         padding: 24px;
         border-radius: 12px;
-        background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(240,240,240,0.9));
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(240, 240, 240, 0.9));
         backdrop-filter: blur(10px);
       "
     >
@@ -89,12 +89,7 @@
             :disable="!formIsValid || loading"
             class="shadow-2 hover-grow"
             :loading="loading"
-            style="
-              border-radius: 8px;
-              width: calc(100% - 16px);
-              max-width: 300px;
-              margin: 0 auto;
-            "
+            style="border-radius: 8px; width: calc(100% - 16px); max-width: 300px; margin: 0 auto"
           />
         </div>
 
@@ -104,16 +99,6 @@
         <q-banner v-if="errorMessage" class="q-mt-lg bg-red-2 text-red-9" dense>
           {{ errorMessage }}
         </q-banner>
-
-        <div class="q-mt-md">
-          <b>DEBUG:</b>
-          <pre>
-Service: {{ selectedService }}
-Stylist: {{ selectedStylist }}
-Date: {{ selectedDate }}
-Time: {{ selectedTime }}
-          </pre>
-        </div>
       </q-form>
     </q-card>
   </q-page>
@@ -129,17 +114,17 @@ const stylists = ref([])
 onMounted(async () => {
   try {
     const resUsluge = await api.get('/api/private/usluge')
-    services.value = resUsluge.data.map(usluga => ({
+    services.value = resUsluge.data.map((usluga) => ({
       label: usluga.naziv,
-      value: usluga.uslugaId
+      value: usluga.uslugaId,
     }))
 
     const resFrizeri = await api.get('/api/private/frizeri')
-    stylists.value = resFrizeri.data.map(frizer => ({
+    stylists.value = resFrizeri.data.map((frizer) => ({
       label: frizer.korisnik
         ? `${frizer.korisnik.ime} ${frizer.korisnik.prezime}`
         : frizer.frizerId,
-      value: frizer.frizerId
+      value: frizer.frizerId,
     }))
   } catch (e) {
     if (e.response) {
@@ -157,8 +142,16 @@ const availableDates = (date) => {
 }
 
 const availableTimes = [
-  '09:00', '10:00', '11:00', '12:00', '13:00',
-  '14:00', '15:00', '16:00', '17:00', '18:00'
+  '09:00',
+  '10:00',
+  '11:00',
+  '12:00',
+  '13:00',
+  '14:00',
+  '15:00',
+  '16:00',
+  '17:00',
+  '18:00',
 ]
 
 const takenTimes = ref([])
@@ -175,7 +168,7 @@ watch([selectedService, selectedStylist, selectedDate], async ([uslugaId, frizer
   if (uslugaId && frizerId && datum) {
     try {
       const res = await api.get('/api/private/termini/zauzeti', {
-        params: { frizerId, uslugaId, datum }
+        params: { frizerId, uslugaId, datum },
       })
       console.log('zauzeta vremena iz backend-a:', res.data)
       takenTimes.value = res.data || []
@@ -190,15 +183,10 @@ watch([selectedService, selectedStylist, selectedDate], async ([uslugaId, frizer
   }
 })
 
-const filteredTimes = computed(() =>
-  availableTimes.filter(t => !takenTimes.value.includes(t))
-)
+const filteredTimes = computed(() => availableTimes.filter((t) => !takenTimes.value.includes(t)))
 
-const formIsValid = computed(() =>
-  selectedService.value &&
-  selectedStylist.value &&
-  selectedDate.value &&
-  selectedTime.value
+const formIsValid = computed(
+  () => selectedService.value && selectedStylist.value && selectedDate.value && selectedTime.value,
 )
 
 async function submitReservation() {
@@ -207,7 +195,7 @@ async function submitReservation() {
     selectedService.value,
     selectedStylist.value,
     selectedDate.value,
-    selectedTime.value
+    selectedTime.value,
   )
 
   errorMessage.value = ''
@@ -220,7 +208,7 @@ async function submitReservation() {
 
   const dataToSend = {
     datumTermina: selectedDate.value,
-    vrijeme: selectedTime.value
+    vrijeme: selectedTime.value,
   }
 
   console.log('Request payload:', dataToSend)
