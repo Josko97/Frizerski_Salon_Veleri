@@ -1,17 +1,23 @@
 <template>
   <q-page class="q-pa-none">
-
     <!-- HERO sekcija s pozadinskom slikom -->
     <div
       class="column items-center justify-center q-pa-md hero-section"
-      style="min-height: 60vh; border-radius: 0 0 40px 40px; box-shadow: 0 8px 32px 0 rgba(31,38,135,.08); background-size: cover; background-position: center;">
+      style="
+        min-height: 60vh;
+        border-radius: 0 0 40px 40px;
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+        background-size: cover;
+        background-position: center;
+      "
+    >
       <div class="hero-text-wrapper">
         <div class="hero-background-overlay">
           <div class="text-h1 hero-title q-mb-sm">
             Frizerski salon <span class="elegant-font">Elegance</span>
           </div>
           <div class="text-h5 hero-subtitle q-mb-sm">
-            Dobrodošli! Ovdje njegujemo Vašu kosu s ljubavlju i stilom.<br>
+            Dobrodošli! Ovdje njegujemo Vašu kosu s ljubavlju i stilom.<br />
             Prepustite se stručnim rukama našeg tima i uživajte u vrhunskom iskustvu.
           </div>
         </div>
@@ -23,49 +29,13 @@
         to="/rezervacija"
         size="xl"
         unelevated
-        class="q-mt-md hero-button" />
+        class="q-mt-md hero-button"
+      />
     </div>
-
-    <!-- INFO sekcija -->
-    <q-card flat bordered class="footer-info-card">
-      <div class="footer-info-row">
-        <!-- O nama -->
-        <div class="footer-info-left">
-          <div class="q-mb-md footer-title">O nama</div>
-          <div>
-            Naš tim iskusnih frizera nudi šišanje, bojanje, njegu kose, svečane frizure i još mnogo toga.<br>
-            Pratimo najnovije trendove, koristimo vrhunske proizvode i uvijek slušamo Vaše želje.<br>
-            Rezervirajte svoj termin i prepustite se profesionalcima!
-          </div>
-        </div>
-
-        <!-- Kontakt -->
-        <div class="footer-info-right">
-          <div class="q-mb-sm"><b>Radno vrijeme:</b><br>
-            Pon - Pet: 08:00 - 20:00<br>
-            Subota: 08:00 - 14:00<br>
-            Nedjelja: Zatvoreno
-          </div>
-          <div class="q-mb-sm">
-            <b>Adresa:</b> Ulica Frizera 12, 51000 Rijeka<br>
-            <b>Telefon:</b> 051/123-456<br>
-            <b>Email:</b> info@elegance.hr
-          </div>
-          <q-separator class="q-my-sm" />
-          <div class="footer-contact-icons">
-            <span class="text-grey">Pratite nas:</span>
-            <q-btn flat round icon="mdi-facebook" @click="goTo('https://facebook.com/elegance')" class="q-ml-sm" color="primary" />
-            <q-btn flat round icon="mdi-instagram" @click="goTo('https://instagram.com/elegance')" class="q-ml-sm" color="primary" />
-          </div>
-        </div>
-      </div>
-    </q-card>
 
     <!-- Galerija -->
     <div class="gallery-section q-mt-xl q-pa-md">
-      <div class="text-h5 gallery-title q-mb-md">
-        Galerija
-      </div>
+      <div class="text-h5 gallery-title q-mb-md">Galerija</div>
       <div class="row justify-center q-gutter-md">
         <div class="col-auto">
           <img :src="muskoImg" alt="Muško šišanje" class="gallery-image" />
@@ -79,6 +49,56 @@
       </div>
     </div>
 
+    <!-- INFO sekcija -->
+    <q-card flat bordered class="footer-info-card">
+      <div class="footer-info-row">
+        <!-- O nama -->
+        <div class="footer-info-left">
+          <div class="q-mb-md footer-title">O nama</div>
+          <div>
+            Naš tim iskusnih frizera nudi šišanje, bojanje, njegu kose, svečane frizure i još mnogo
+            toga.<br />
+            Pratimo najnovije trendove, koristimo vrhunske proizvode i uvijek slušamo Vaše želje.<br />
+            Rezervirajte svoj termin i prepustite se profesionalcima!
+          </div>
+        </div>
+
+        <!-- Kontakt -->
+        <div class="footer-info-right">
+          <div class="q-mb-sm">
+            <b>Radno vrijeme:</b><br />
+            Pon - Pet: 08:00 - 20:00<br />
+            Subota: 08:00 - 14:00<br />
+            Nedjelja: Zatvoreno
+          </div>
+          <div class="q-mb-sm">
+            <b>Adresa:</b> Ulica Frizera 12, 51000 Rijeka<br />
+            <b>Telefon:</b> 051/123-456<br />
+            <b>Email:</b> info@elegance.hr
+          </div>
+          <q-separator class="q-my-sm" />
+          <div class="footer-contact-icons">
+            <span class="text-grey">Pratite nas:</span>
+            <q-btn
+              flat
+              round
+              icon="mdi-facebook"
+              @click="goTo('https://facebook.com/elegance')"
+              class="q-ml-sm"
+              color="primary"
+            />
+            <q-btn
+              flat
+              round
+              icon="mdi-instagram"
+              @click="goTo('https://instagram.com/elegance')"
+              class="q-ml-sm"
+              color="primary"
+            />
+          </div>
+        </div>
+      </div>
+    </q-card>
   </q-page>
 </template>
 
@@ -107,7 +127,6 @@ function goTo(url) {
   padding-top: 1rem;
 }
 
-
 .hero-text-wrapper {
   text-align: center;
   margin-top: 0;
@@ -123,7 +142,7 @@ function goTo(url) {
 }
 
 .hero-title {
-  color: #5D4037;
+  color: #5d4037;
   font-size: 3.5rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
@@ -139,7 +158,7 @@ function goTo(url) {
 }
 
 .hero-subtitle {
-  color: #5D4037;
+  color: #5d4037;
   font-size: 1.6rem;
   max-width: 800px;
   margin: 0 auto 1.2rem auto;
@@ -165,7 +184,7 @@ function goTo(url) {
   margin: 0.5rem auto;
   max-width: 1200px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-  color: #5D4037;
+  color: #5d4037;
 }
 
 .footer-info-row {
@@ -185,7 +204,7 @@ function goTo(url) {
 .footer-title {
   font-size: 1.6rem;
   font-weight: bold;
-  color: #5D4037;
+  color: #5d4037;
   text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -203,7 +222,7 @@ function goTo(url) {
   max-width: 1200px;
   margin: 2rem auto;
   text-align: center;
-  color: #5D4037;
+  color: #5d4037;
 }
 
 .gallery-title {
@@ -212,11 +231,10 @@ function goTo(url) {
 }
 
 .gallery-image {
-  width: 150px;    /* isti fiksni širinski format */
-  height: 150px;   /* ista visina */
+  width: 150px; /* isti fiksni širinski format */
+  height: 150px; /* ista visina */
   object-fit: cover; /* da se slika prilagodi bez izobličenja */
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
-
 </style>

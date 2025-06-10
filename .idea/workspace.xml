@@ -5,9 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="66c8173e-ae79-4bb6-80a1-c18c06aba1ac" name="Changes" comment="Dodana Security konfiguracija">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/model/Korisnik.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/model/Korisnik.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/quasar-project/src/pages/IndexPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/quasar-project/src/pages/IndexPage.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

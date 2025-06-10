@@ -59,7 +59,7 @@
           v-model="selectedDate"
           mask="YYYY-MM-DD"
           color="primary"
-          :options="availableDates"
+          :options="isValidDate"
           label="Odaberi datum"
           today-btn
           class="gradient-date q-mb-xl"
@@ -136,11 +136,6 @@ onMounted(async () => {
   }
 })
 
-const availableDates = (date) => {
-  const day = new Date(date).getDay()
-  return day !== 0
-}
-
 const availableTimes = [
   '09:00',
   '10:00',
@@ -188,6 +183,18 @@ const filteredTimes = computed(() => availableTimes.filter((t) => !takenTimes.va
 const formIsValid = computed(
   () => selectedService.value && selectedStylist.value && selectedDate.value && selectedTime.value,
 )
+const isValidDate = (date) => {
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+
+  const selected = new Date(date)
+  selected.setHours(0, 0, 0, 0)
+
+  const isFutureOrToday = selected >= today
+  const notSunday = selected.getDay() !== 0
+
+  return isFutureOrToday && notSunday
+}
 
 async function submitReservation() {
   console.log(
