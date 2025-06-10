@@ -107,6 +107,7 @@ public class Korisnik{
 		this.email = email;
 		this.lozinka = lozinka;
 		this.username = username;
+
 	}
 
 	public Korisnik(String ime, String prezime, String email, String username) {
@@ -114,6 +115,7 @@ public class Korisnik{
 		this.prezime = prezime;
 		this.email = email;
 		this.username = username;
+
 	}
 
 	@Override

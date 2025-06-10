@@ -1,6 +1,9 @@
 package com.frizerskisalon.veleri.controller;
 
 import com.frizerskisalon.veleri.model.Korisnik;
+import com.frizerskisalon.veleri.model.Role;
+import com.frizerskisalon.veleri.model.Uloga;
+import com.frizerskisalon.veleri.repository.RoleRepository;
 import com.frizerskisalon.veleri.security.jwt.JwtUtils;
 import com.frizerskisalon.veleri.security.request.LoginRequest;
 import com.frizerskisalon.veleri.security.response.LoginResponse;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -31,6 +35,9 @@ public class AuthController {
 
     @Autowired
     KorisnikService korisnikService;
+
+    @Autowired
+    RoleRepository roleRepository;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -66,6 +73,13 @@ public class AuthController {
 
     @PostMapping("/auth/register")
     public ResponseEntity<Map<String, String>> registrirajKorisnika(@RequestBody Korisnik korisnik) {
+        Optional<Role> optionalRole = roleRepository.findByNazivUloge(Uloga.ROLE_KORISNIK);
+
+
+            Role korisnickaUloga = optionalRole.get();
+
+
+        korisnik.setRole(korisnickaUloga);
         return korisnikService.registracijaKorisnika(korisnik);
     }
 
