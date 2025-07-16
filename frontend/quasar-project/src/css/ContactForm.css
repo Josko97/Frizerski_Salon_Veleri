@@ -1,0 +1,8 @@
+.my-textarea {
+  font-size: 1.25rem;      /* veći tekst za ugodnije pisanje */
+  line-height: 1.6;        /* veći razmak među redovima */
+  padding: 10px;           /* unutarnji razmak */
+  resize: none;            /* onemogući ručno povlačenje */
+  overflow-y: auto;        /* pokaži scroll kad treba */
+  white-space: pre-wrap;   /* čuvaj prijelome reda */
+}

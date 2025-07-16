@@ -108,6 +108,45 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { api } from 'boot/axios'
 
+// Helper funkcije
+function generateTimes(start, end, stepMinutes) {
+  const result = []
+  let [h, m] = start.split(':').map(Number)
+  const [endH, endM] = end.split(':').map(Number)
+  while (h < endH || (h === endH && m <= endM)) {
+    result.push(
+      h.toString().padStart(2, '0') + ':' + m.toString().padStart(2, '0')
+    )
+    m += stepMinutes
+    if (m >= 60) {
+      m -= 60
+      h += 1
+    }
+  }
+  return result
+}
+
+function addMinutes(time, mins) {
+ const [h, m] = time.split(':').map(Number)
+  const date = new Date(0, 0, 0, h, m)
+  date.setMinutes(date.getMinutes() + mins)
+  return date.toTimeString().slice(0,5)
+}
+
+function isSlotFree(candidateStart, trajanjeNoveUsluge, zauzeti) {
+ if (!candidateStart) return true
+  const candidateEnd = addMinutes(candidateStart, trajanjeNoveUsluge+5)
+  for (const t of zauzeti) {
+    const takenStart = t.vrijeme
+    const takenEnd = addMinutes(takenStart, t.trajanje)
+    // NOVI TERMIN JE SLOBODAN ako: kandidat ne preklapa ni s jednim postojećim
+    if (candidateStart < takenEnd && candidateEnd > takenStart) {
+      return false
+    }
+  }
+  return true
+}
+
 const services = ref([])
 const stylists = ref([])
 
@@ -117,6 +156,7 @@ onMounted(async () => {
     services.value = resUsluge.data.map((usluga) => ({
       label: usluga.naziv,
       value: usluga.uslugaId,
+      trajanje: usluga.trajanje // u minutama
     }))
 
     const resFrizeri = await api.get('/api/private/frizeri')
@@ -136,38 +176,34 @@ onMounted(async () => {
   }
 })
 
-const availableTimes = [
-  '09:00',
-  '10:00',
-  '11:00',
-  '12:00',
-  '13:00',
-  '14:00',
-  '15:00',
-  '16:00',
-  '17:00',
-  '18:00',
-]
-
-const takenTimes = ref([])
-
 const selectedService = ref(null)
 const selectedStylist = ref(null)
 const selectedDate = ref(null)
 const selectedTime = ref(null)
+const takenTimes = ref([])
 const loading = ref(false)
 const errorMessage = ref('')
 const successMessage = ref('')
+
+const selectedServiceObj = computed(() =>
+  services.value.find(u => u.value === selectedService.value)
+)
+const stepMinutes = computed(() =>
+  selectedServiceObj.value?.trajanje || 15 // default 15 min ako ništa nije odabrano
+)
+const availableTimes = computed(() =>
+  generateTimes('08:00', '14:00', stepMinutes.value)
+)
 
 watch([selectedService, selectedStylist, selectedDate], async ([uslugaId, frizerId, datum]) => {
   if (uslugaId && frizerId && datum) {
     try {
       const res = await api.get('/api/private/termini/zauzeti', {
-        params: { frizerId, uslugaId, datum },
+        params: { frizerId, datum },
       })
-      console.log('zauzeta vremena iz backend-a:', res.data)
       takenTimes.value = res.data || []
-      if (takenTimes.value.includes(selectedTime.value)) {
+      console.log('ZAUZETI TERMINI iz backend-a:', takenTimes.value) 
+      if (!isSlotFree(selectedTime.value, stepMinutes.value, takenTimes.value)) {
         selectedTime.value = null
       }
     } catch {
@@ -178,33 +214,29 @@ watch([selectedService, selectedStylist, selectedDate], async ([uslugaId, frizer
   }
 })
 
-const filteredTimes = computed(() => availableTimes.filter((t) => !takenTimes.value.includes(t)))
+const filteredTimes = computed(() => {
+  if (!selectedServiceObj.value) return []
+  const trajanje = selectedServiceObj.value.trajanje
+  return availableTimes.value.filter(slot =>
+    isSlotFree(slot, trajanje, takenTimes.value)
+  )
+})
 
 const formIsValid = computed(
   () => selectedService.value && selectedStylist.value && selectedDate.value && selectedTime.value,
 )
+
 const isValidDate = (date) => {
   const today = new Date()
   today.setHours(0, 0, 0, 0)
-
   const selected = new Date(date)
   selected.setHours(0, 0, 0, 0)
-
   const isFutureOrToday = selected >= today
   const notSunday = selected.getDay() !== 0
-
   return isFutureOrToday && notSunday
 }
 
 async function submitReservation() {
-  console.log(
-    'Selected values:',
-    selectedService.value,
-    selectedStylist.value,
-    selectedDate.value,
-    selectedTime.value,
-  )
-
   errorMessage.value = ''
   successMessage.value = ''
   loading.value = true
@@ -217,8 +249,6 @@ async function submitReservation() {
     datumTermina: selectedDate.value,
     vrijeme: selectedTime.value,
   }
-
-  console.log('Request payload:', dataToSend)
 
   try {
     await api.post(url, dataToSend)
@@ -246,7 +276,6 @@ async function submitReservation() {
   padding-left: 0;
   padding-right: 0;
 }
-
 .gradient-input {
   background: linear-gradient(145deg, #f0f0f0, #e0e0e0);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
@@ -258,7 +287,6 @@ async function submitReservation() {
   padding-right: 12px;
   box-sizing: border-box;
 }
-
 .gradient-date {
   background: linear-gradient(145deg, #f7f7f7, #dcdcdc);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
@@ -273,11 +301,9 @@ async function submitReservation() {
   margin-left: auto;
   margin-right: auto;
 }
-
 .text-negative {
   color: #e53935;
 }
-
 .hover-grow:hover {
   transform: scale(1.05);
   transition: transform 0.2s ease-in-out;

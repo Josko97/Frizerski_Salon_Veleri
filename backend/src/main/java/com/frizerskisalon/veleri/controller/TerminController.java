@@ -17,8 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -81,7 +80,7 @@ public class TerminController {
     public List<Frizer> getFrizeri() {
         return frizerRepository.findAll();
     }
-
+/*
     @GetMapping("/termini/zauzeti")
     public List<String> zauzetiTermini(
             @RequestParam Long frizerId,
@@ -95,6 +94,27 @@ public class TerminController {
                 .map(Termin::getVrijeme)
                 .collect(Collectors.toList());
     }
+*/
+
+    @GetMapping("/termini/zauzeti")
+    public List<Map<String, Object>> zauzetiTermini(
+            @RequestParam Long frizerId,
+            @RequestParam String datum) {
+
+        List<Termin> zauzeti = terminRepository
+                .findByFrizer_FrizerIdAndDatumTermina(frizerId, datum);
+
+        // Klasičan pristup:
+        List<Map<String, Object>> lista = new ArrayList<>();
+        for (Termin t : zauzeti) {
+            Map<String, Object> m = new HashMap<>();
+            m.put("vrijeme", t.getVrijeme());
+            m.put("trajanje", t.getUsluga().getTrajanje()); // ili t.getTrajanje() ako imaš direktno
+            lista.add(m);
+        }
+        return lista;
+    }
+
 
 
 
