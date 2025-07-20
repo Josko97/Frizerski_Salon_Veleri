@@ -53,9 +53,12 @@ public class KorisnikServiceImpl implements KorisnikService {
 	}
 
 	@Override
-	public ResponseEntity<List<Korisnik>> listaKorisnika() {
-
-		return ResponseEntity.ok(korisnikRepository.findAll());
+	public ResponseEntity<List<KorisnikDTO>> listaKorisnika() {
+		List<Korisnik> korisnici = korisnikRepository.findAll();
+		List<KorisnikDTO> dtos = korisnici.stream()
+				.map(this::convertToDTO)
+				.toList();
+		return ResponseEntity.ok(dtos);
 	}
 
 	@Override

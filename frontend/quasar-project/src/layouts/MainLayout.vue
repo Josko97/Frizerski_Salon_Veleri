@@ -12,6 +12,7 @@
           <q-btn flat to="/" label="Home" class="q-mr-sm" />
           <q-btn flat to="/rezervacija" label="Rezervacija" />
           <q-btn flat to="/kontakt" label="Kontakt" />
+          <q-btn v-if="userRoles.some(role => role.includes('ADMIN'))" flat to="/admin" label="Admin" />
         </q-toolbar-title>
 
         <!-- Desna strana: Prijava ili Odjava -->
@@ -36,6 +37,7 @@ import { useRouter, useRoute } from 'vue-router'
 // Koristi pravi ključ iz localStorage (authToken iz login/registracije)
 const TOKEN_KEY = 'authToken'
 const isAuthenticated = ref(!!localStorage.getItem(TOKEN_KEY))
+const userRoles = ref([])
 const router = useRouter()
 const route = useRoute()
 // Osiguraj da se prikaz gumba osvježava i kad se promijeni localStorage (npr. u drugom tabu)
@@ -65,7 +67,44 @@ const logout = () => {
   localStorage.removeItem('authUser')
   localStorage.removeItem('authRoles')
   isAuthenticated.value = false
+  userRoles.value = []
   router.push('/login')
+}
+
+
+onMounted(() => {
+  checkAuth()
+  loadRoles()
+  window.addEventListener('storage', () => {
+    checkAuth()
+    loadRoles()
+  })
+})
+
+onBeforeUnmount(() => {
+  window.removeEventListener('storage', checkAuth)
+})
+
+watch(
+  () => route.fullPath,
+  () => {
+    checkAuth()
+    loadRoles()
+  }
+)
+
+
+function loadRoles() {
+  const roles = localStorage.getItem('authRoles')
+  if (roles) {
+    try {
+      userRoles.value = JSON.parse(roles)
+    } catch {
+      userRoles.value = []
+    }
+  } else {
+    userRoles.value = []
+  }
 }
 
 // OVAJ dio koristiš nakon login-a na LoginPage.vue:

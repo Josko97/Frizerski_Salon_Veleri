@@ -11,7 +11,7 @@ public interface KorisnikService {
 
     public ResponseEntity<Map<String, String>> registracijaKorisnika(Korisnik korisnik);
 
-    ResponseEntity<List<Korisnik>> listaKorisnika();
+    ResponseEntity<List<KorisnikDTO>> listaKorisnika();
 
     ResponseEntity<KorisnikDTO> getKorisnikById(Long id);
 

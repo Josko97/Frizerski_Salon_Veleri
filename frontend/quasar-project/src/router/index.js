@@ -19,12 +19,20 @@ export default defineRouter(function (/* { store, ssrContext } */) {
   const Router = createRouter({
     scrollBehavior: () => ({ left: 0, top: 0 }),
     routes,
-
-    // Leave this as is and make changes in quasar.conf.js instead!
-    // quasar.conf.js -> build -> vueRouterMode
-    // quasar.conf.js -> build -> publicPath
     history: createHistory(process.env.VUE_ROUTER_BASE)
+  })
+
+  // Route guard ZAŠTITA ADMIN RUTA:
+  Router.beforeEach((to, from, next) => {
+    const roles = JSON.parse(localStorage.getItem('authRoles') || '[]')
+    if (to.meta.requiresAdmin && !roles.includes('ROLE_ADMIN')) {
+      next('/') // ili '/login' ili '/unauthorized'
+    } else {
+      next()
+    }
   })
 
   return Router
 })
+
+

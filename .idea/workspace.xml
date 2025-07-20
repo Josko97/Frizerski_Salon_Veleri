@@ -6,9 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="66c8173e-ae79-4bb6-80a1-c18c06aba1ac" name="Changes" comment="Dodana Security konfiguracija">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/TerminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/controller/TerminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/repository/TerminRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/repository/TerminRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/service/KorisnikService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/service/KorisnikService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/service/impl/KorisnikServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/com/frizerskisalon/veleri/service/impl/KorisnikServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/quasar-project/src/layouts/MainLayout.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/quasar-project/src/layouts/MainLayout.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/quasar-project/src/pages/FormaPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/quasar-project/src/pages/FormaPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/quasar-project/src/pages/ReservationPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/quasar-project/src/pages/ReservationPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/quasar-project/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/quasar-project/src/router/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/quasar-project/src/router/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/quasar-project/src/router/routes.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -64,7 +70,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Josko/IdeaProjects/Frizerski_Salon_Veleri/backend&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/User/IdeaProjects/Frizerski_Salon_Veleri&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;

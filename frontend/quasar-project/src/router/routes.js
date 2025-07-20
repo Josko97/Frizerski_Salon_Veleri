@@ -23,6 +23,11 @@ const routes = [
         path: '/kontakt',
         component: () => import('pages/FormaPage.vue'),
       },
+      {
+        path: '/admin',
+        component: () => import('pages/AdminPage.vue'),
+        meta: { requiresAdmin: true },
+      },
     ],
   },
 ]
