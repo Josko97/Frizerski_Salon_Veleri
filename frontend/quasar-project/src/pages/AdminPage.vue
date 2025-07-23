@@ -61,28 +61,36 @@
             </div>
 
             <!-- Appointments -->
-            <div v-else-if="selected === 'appointments'">
-              <div class="text-h4 text-primary text-weight-medium q-mb-lg">Popis Termina</div>
-              <q-table
-                :rows="appointments"
-                :columns="appointmentColumns"
-                row-key="terminId"
-                flat bordered square dense
-                :loading="loadingAppointments"
-                separator="cell"
-                :pagination="{ rowsPerPage: 10 }"
-                no-data-label="Nema termina"
-                no-results-label="Nema rezultata"
-                style="max-width:1000px"
-              >
-                <template v-slot:body-cell-frizer="props">
-                  <q-td>{{ props.row.frizerIme }} {{ props.row.frizerPrezime }}</q-td>
-                </template>
-                <template v-slot:body-cell-klijent="props">
-                  <q-td>{{ props.row.korisnikIme }} {{ props.row.korisnikPrezime }}</q-td>
-                </template>
-              </q-table>
-            </div>
+<div v-else-if="selected === 'appointments'">
+  <div class="text-h4 text-primary text-weight-medium q-mb-lg">Popis Termina</div>
+  <q-table
+    :rows="appointments"
+    :columns="appointmentColumns"
+    row-key="terminId"
+    flat bordered square dense
+    :loading="loadingAppointments"
+    separator="cell"
+    :pagination="{ rowsPerPage: 10 }"
+    no-data-label="Nema termina"
+    no-results-label="Nema rezultata"
+    style="max-width:1000px"
+  >
+    <template v-slot:body-cell-frizer="props">
+      <q-td>{{ props.row.frizerIme }} {{ props.row.frizerPrezime }}</q-td>
+    </template>
+
+    <template v-slot:body-cell-klijent="props">
+      <q-td>{{ props.row.korisnikIme }} {{ props.row.korisnikPrezime }}</q-td>
+    </template>
+
+    <template v-slot:body-cell-actions="props">
+      <q-td class="text-center">
+        <q-btn size="sm" color="negative" flat icon="delete" @click="deleteAppointment(props.row)" />
+      </q-td>
+    </template>
+  </q-table>
+</div>
+
 
             <!-- Services -->
             <div v-else-if="selected === 'services'">
@@ -149,7 +157,8 @@ const appointmentColumns = [
   { name: 'vrijeme', label: 'Vrijeme', align: 'left', field: 'vrijeme', sortable: true },
   { name: 'uslugaNaziv', label: 'Usluga', align: 'left', field: 'uslugaNaziv', sortable: true },
   { name: 'frizer', label: 'Frizer', align: 'left', field: row => `${row.frizerIme} ${row.frizerPrezime}`, sortable: false },
-  { name: 'klijent', label: 'Klijent', align: 'left', field: row => `${row.korisnikIme} ${row.korisnikPrezime}`, sortable: false }
+  { name: 'klijent', label: 'Klijent', align: 'left', field: row => `${row.korisnikIme} ${row.korisnikPrezime}`, sortable: false },
+  { name: 'actions', label: 'Akcije', align: 'center', field: 'actions', sortable: false }
 ]
 function fetchAppointments() {
   loadingAppointments.value = true
