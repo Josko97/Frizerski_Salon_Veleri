@@ -1,6 +1,7 @@
 Sustav za upravljanje frizerskim salonom (Veleri)
 
 Aplikacija namijenjena digitalizaciji poslovanja frizerskog salona, omogućujući korisnicima pregled usluga i rezervaciju termina, dok administratorima (vlasnicima) pruža potpuni sustav za upravljanje terminima, uslugama i zaposlenicima.
+
 🚀 Ključne funkcionalnosti
 
     Autentifikacija i Autorizacija: Implementiran sustav prijave i registracije s različitim razinama pristupa (Korisnik / Admin) putem Spring Security-ja.
