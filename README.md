@@ -15,7 +15,7 @@ Aplikacija namijenjena digitalizaciji poslovanja frizerskog salona, omogućujuć
 
     Backend: Java, Spring Boot (Data JPA, Web, Security)
 
-    Frontend: Thymeleaf (Server-side rendering), HTML5, CSS3, Bootstrap
+    Frontend: Vue.js 3
 
     Baza podataka: MySQL / H2 (za testiranje)
 
@@ -29,7 +29,7 @@ Za pokretanje projekta lokalno, potrebno je imati instalirano:
 
     Maven
 
-    MySQL Server (opcionalno, ako se ne koristi in-memory baza)
+    MySQL Server
 
 🔧 Instalacija i pokretanje
 
