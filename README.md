@@ -44,4 +44,4 @@ Za pokretanje projekta lokalno, potrebno je imati instalirano:
 
     mvn spring-boot:run
 
-    Otvorite preglednik i posjetite: http://localhost:8080
+    Otvorite preglednik i posjetite: http://localhost:9000
